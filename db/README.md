@@ -14,9 +14,9 @@ createdb Smart
 
 - `DB_HOST` (default: `localhost`)
 - `DB_PORT` (default: `5432`)
-- `DB_NAME` (default: `Smart`)
-- `DB_USER` (default: `postgres`)
-- `DB_PASSWORD` (default: `admin123`)
+- `DB_NAME` (default: `your_db_name`)
+- `DB_USER` (default: `your_db_user`)
+- `DB_PASSWORD` (default: `your_db_password`)
 
 3. Run the initializer:
 
