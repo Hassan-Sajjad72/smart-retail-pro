@@ -1,0 +1,39 @@
+name: DeployGuard
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_action: { required: true, type: string }
+      deployment_operation_id: { required: true, type: string }
+      project_id: { required: true, type: string }
+      aws_region: { required: true, type: string }
+      aws_role_arn: { required: true, type: string }
+      vpc_id: { required: true, type: string }
+      public_subnet_ids: { required: true, type: string }
+      app_port: { required: true, type: string }
+      health_check_path: { required: true, type: string }
+      terraform_state_bucket: { required: true, type: string }
+      app_root: { required: true, type: string }
+      docker_strategy: { required: true, type: string }
+      generated_dockerfile_base64: { required: true, type: string }
+      managed_database_config_base64: { required: true, type: string }
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  deploy:
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@0747e2662d32b8ece7314af58164a4f7e1b0ea86
+    with:
+      deployment_action: ${{ inputs.deployment_action }}
+      deployment_operation_id: ${{ inputs.deployment_operation_id }}
+      project_id: ${{ inputs.project_id }}
+      aws_region: ${{ inputs.aws_region }}
+      aws_role_arn: ${{ inputs.aws_role_arn }}
+      vpc_id: ${{ inputs.vpc_id }}
+      public_subnet_ids: ${{ inputs.public_subnet_ids }}
+      app_port: ${{ fromJSON(inputs.app_port) }}
+      health_check_path: ${{ inputs.health_check_path }}
+      terraform_state_bucket: ${{ inputs.terraform_state_bucket }}
+      app_root: ${{ inputs.app_root }}
+      docker_strategy: ${{ inputs.docker_strategy }}
+      generated_dockerfile_base64: ${{ inputs.generated_dockerfile_base64 }}
+      managed_database_config_base64: ${{ inputs.managed_database_config_base64 }}
