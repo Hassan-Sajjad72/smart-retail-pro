@@ -14,14 +14,14 @@ on:
       terraform_state_bucket: { required: true, type: string }
       app_root: { required: true, type: string }
       docker_strategy: { required: true, type: string }
-      generated_dockerfile_base64: { required: true, type: string }
-      managed_database_config_base64: { required: true, type: string }
+      generated_dockerfile_base64: { required: false, type: string, default: "" }
+      managed_database_config_base64: { required: false, type: string, default: "" }
 permissions:
   contents: read
   id-token: write
 jobs:
   deploy:
-    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@20df8f0a4f24bc7356246e50317b8f22a68086ab
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@5569c0009a4b31dbcd94971fa3fbf23d0e56c679
     with:
       deployment_action: ${{ inputs.deployment_action }}
       deployment_operation_id: ${{ inputs.deployment_operation_id }}
