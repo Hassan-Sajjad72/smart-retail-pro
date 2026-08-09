@@ -26,9 +26,7 @@ on:
       output_directory: { required: true, type: string }
       generated_dockerfile_base64: { required: false, type: string, default: "" }
       build_time_public_config_base64: { required: false, type: string, default: "" }
-      rollback_source_operation_id: { required: false, type: string, default: "" }
-      rollback_image_uri: { required: false, type: string, default: "" }
-      rollback_task_definition_arn: { required: false, type: string, default: "" }
+      rollback_release_json: { required: false, type: string, default: "{}" }
 permissions:
   contents: read
   id-token: write
@@ -60,6 +58,6 @@ jobs:
       output_directory: ${{ inputs.output_directory }}
       generated_dockerfile_base64: ${{ inputs.generated_dockerfile_base64 }}
       build_time_public_config_base64: ${{ inputs.build_time_public_config_base64 }}
-      rollback_source_operation_id: ${{ inputs.rollback_source_operation_id }}
-      rollback_image_uri: ${{ inputs.rollback_image_uri }}
-      rollback_task_definition_arn: ${{ inputs.rollback_task_definition_arn }}
+      rollback_source_operation_id: ${{ fromJSON(inputs.rollback_release_json).sourceOperationId || '' }}
+      rollback_image_uri: ${{ fromJSON(inputs.rollback_release_json).imageUri || '' }}
+      rollback_task_definition_arn: ${{ fromJSON(inputs.rollback_release_json).taskDefinitionArn || '' }}
