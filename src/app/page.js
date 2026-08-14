@@ -698,7 +698,7 @@ export default function Home() {
             </div>
             Smart<span>Retail</span> Pro
           </a>
-          <span>© 2025 SmartRetail Pro. All rights reserved.</span>
+          <span>© 2026 SmartRetail Pro. All rights reserved Tania&Company.</span>
         </footer>
 
       </div>
