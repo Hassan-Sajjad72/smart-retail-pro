@@ -8,27 +8,25 @@ on:
       environment_name: { required: true, type: string }
       repository_full_name: { required: true, type: string }
       repository_branch: { required: true, type: string }
-      detection_profile_version: { required: true, type: string }
-      deployment_contract_version: { required: true, type: string }
+      commit_sha: { required: true, type: string }
       image_tag: { required: true, type: string }
       environment_references_base64: { required: true, type: string }
+      managed_database_enabled: { required: true, type: string }
       infrastructure_namespace: { required: true, type: string }
       aws_region: { required: true, type: string }
       aws_role_arn: { required: true, type: string }
       vpc_id: { required: true, type: string }
       public_subnet_ids: { required: true, type: string }
-      commit_sha: { required: true, type: string }
       terraform_state_bucket: { required: true, type: string }
-      generated_dockerfile_base64: { required: false, type: string, default: "" }
-      build_time_public_config_base64: { required: false, type: string, default: "" }
-      build_plan_contract_json: { required: true, type: string }
-      rollback_release_json: { required: false, type: string, default: "{}" }
+      platform_port: { required: true, type: string }
+      rollback_image_digest: { required: false, type: string, default: "" }
+      control_plane_sha: { required: true, type: string }
 permissions:
   contents: read
   id-token: write
 jobs:
   deploy:
-    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@3e90854625b8f1a1750c07284219703b3ba29d1f
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@01d9c838da64ae9b3ef474414f315c831d9f2744
     with:
       deployment_action: ${{ inputs.deployment_action }}
       deployment_operation_id: ${{ inputs.deployment_operation_id }}
@@ -36,25 +34,16 @@ jobs:
       environment_name: ${{ inputs.environment_name }}
       repository_full_name: ${{ inputs.repository_full_name }}
       repository_branch: ${{ inputs.repository_branch }}
-      detection_profile_version: ${{ inputs.detection_profile_version }}
-      deployment_contract_version: ${{ inputs.deployment_contract_version }}
-      build_plan_base64: ${{ fromJSON(inputs.build_plan_contract_json).build_plan_base64 }}
+      commit_sha: ${{ inputs.commit_sha }}
       image_tag: ${{ inputs.image_tag }}
       environment_references_base64: ${{ inputs.environment_references_base64 }}
+      managed_database_enabled: ${{ inputs.managed_database_enabled }}
       infrastructure_namespace: ${{ inputs.infrastructure_namespace }}
       aws_region: ${{ inputs.aws_region }}
       aws_role_arn: ${{ inputs.aws_role_arn }}
       vpc_id: ${{ inputs.vpc_id }}
       public_subnet_ids: ${{ inputs.public_subnet_ids }}
-      commit_sha: ${{ inputs.commit_sha }}
-      application_root: ${{ fromJSON(inputs.build_plan_contract_json).application_root }}
-      app_port: ${{ fromJSON(inputs.build_plan_contract_json).app_port }}
-      health_check_path: ${{ fromJSON(inputs.build_plan_contract_json).health_check_path }}
       terraform_state_bucket: ${{ inputs.terraform_state_bucket }}
-      container_profile: ${{ fromJSON(inputs.build_plan_contract_json).container_profile }}
-      output_directory: ${{ fromJSON(inputs.build_plan_contract_json).output_directory }}
-      generated_dockerfile_base64: ${{ inputs.generated_dockerfile_base64 }}
-      build_time_public_config_base64: ${{ inputs.build_time_public_config_base64 }}
-      rollback_source_operation_id: ${{ fromJSON(inputs.rollback_release_json).sourceOperationId || '' }}
-      rollback_image_uri: ${{ fromJSON(inputs.rollback_release_json).imageUri || '' }}
-      rollback_task_definition_arn: ${{ fromJSON(inputs.rollback_release_json).taskDefinitionArn || '' }}
+      platform_port: ${{ inputs.platform_port }}
+      rollback_image_digest: ${{ inputs.rollback_image_digest }}
+      control_plane_sha: ${{ inputs.control_plane_sha }}
