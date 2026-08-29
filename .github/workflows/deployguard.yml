@@ -21,12 +21,13 @@ on:
       platform_port: { required: true, type: string }
       rollback_image_digest: { required: false, type: string, default: "" }
       control_plane_sha: { required: true, type: string }
+      result_contract_version: { required: true, type: string }
 permissions:
   contents: read
   id-token: write
 jobs:
   deploy:
-    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@cefcb60b3981d25e44fe3137fe8b00cd408c48aa
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@45dfd9abb68f97212cbd6e389e83ba8026d4024c
     with:
       deployment_action: ${{ inputs.deployment_action }}
       deployment_operation_id: ${{ inputs.deployment_operation_id }}
@@ -47,3 +48,4 @@ jobs:
       platform_port: ${{ inputs.platform_port }}
       rollback_image_digest: ${{ inputs.rollback_image_digest }}
       control_plane_sha: ${{ inputs.control_plane_sha }}
+      result_contract_version: ${{ inputs.result_contract_version }}
