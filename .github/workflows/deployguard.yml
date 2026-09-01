@@ -9,17 +9,13 @@ on:
       repository_full_name: { required: true, type: string }
       repository_branch: { required: true, type: string }
       commit_sha: { required: true, type: string }
-      image_tag: { required: true, type: string }
-      environment_references_base64: { required: true, type: string }
-      managed_database_enabled: { required: true, type: string }
+      services_base64: { required: true, type: string }
       infrastructure_namespace: { required: true, type: string }
       aws_region: { required: true, type: string }
       aws_role_arn: { required: true, type: string }
       vpc_id: { required: true, type: string }
       public_subnet_ids: { required: true, type: string }
       terraform_state_bucket: { required: true, type: string }
-      platform_port: { required: true, type: string }
-      rollback_image_digest: { required: false, type: string, default: "" }
       control_plane_sha: { required: true, type: string }
       result_contract_version: { required: true, type: string }
 permissions:
@@ -27,7 +23,7 @@ permissions:
   id-token: write
 jobs:
   deploy:
-    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@45dfd9abb68f97212cbd6e389e83ba8026d4024c
+    uses: Hassan-Sajjad72/Deploy-Guard-dev/.github/workflows/deployguard-reusable.yml@a077458565d27a4c2cf4b039f68908f1b71052e3
     with:
       deployment_action: ${{ inputs.deployment_action }}
       deployment_operation_id: ${{ inputs.deployment_operation_id }}
@@ -36,16 +32,12 @@ jobs:
       repository_full_name: ${{ inputs.repository_full_name }}
       repository_branch: ${{ inputs.repository_branch }}
       commit_sha: ${{ inputs.commit_sha }}
-      image_tag: ${{ inputs.image_tag }}
-      environment_references_base64: ${{ inputs.environment_references_base64 }}
-      managed_database_enabled: ${{ inputs.managed_database_enabled }}
+      services_base64: ${{ inputs.services_base64 }}
       infrastructure_namespace: ${{ inputs.infrastructure_namespace }}
       aws_region: ${{ inputs.aws_region }}
       aws_role_arn: ${{ inputs.aws_role_arn }}
       vpc_id: ${{ inputs.vpc_id }}
       public_subnet_ids: ${{ inputs.public_subnet_ids }}
       terraform_state_bucket: ${{ inputs.terraform_state_bucket }}
-      platform_port: ${{ inputs.platform_port }}
-      rollback_image_digest: ${{ inputs.rollback_image_digest }}
       control_plane_sha: ${{ inputs.control_plane_sha }}
       result_contract_version: ${{ inputs.result_contract_version }}
